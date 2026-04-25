@@ -28,6 +28,7 @@ Ce projet s’inscrit dans une démarche de montée en compétence vers des prat
 * Orchestration multi-containers avec Docker Compose
 * Gestion des volumes Docker (persistance des données)
 * Communication réseau entre containers (DNS Docker)
+* Ajout d’une pipeline CI/CD (delivery) (GitHub Actions)
 
 
 ## Architecture
@@ -133,7 +134,7 @@ volumes:
 
 ## 🚧 Évolutions prévues
 
-* Ajout d’une pipeline CI/CD (GitHub Actions)
+* Finalisation de la pipeline CI/CD (partie deployment) (GitHub Actions)
 * Introduction de microservices
 * Déploiement Kubernetes
 * Validation des entrées (Bean Validation)
