@@ -1,3 +1,5 @@
+[![CI](https://github.com/tlacroix83-ui/spring-docker-devops-learning/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/tlacroix83-ui/spring-docker-devops-learning/actions/workflows/ci.yml)
+
 # Todo API — Spring Boot, Docker & PostgreSQL
 
 ## 📌 Description
