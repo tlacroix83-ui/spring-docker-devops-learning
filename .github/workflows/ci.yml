@@ -23,3 +23,14 @@ jobs:
 
     - name: Build with Maven
       run: ./mvnw clean package -DskipTests
+
+    - name: Build and run Docker Compose
+      run: docker compose -f docker-compose.yml up --build -d
+
+    - name: Push Docker to GitHub Container Registry
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        push: true
+        tags: ghcr.io/${{ github.repository }}:latest
+        
