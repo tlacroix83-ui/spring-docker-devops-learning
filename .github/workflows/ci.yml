@@ -41,3 +41,6 @@ jobs:
         push: true
         tags: ghcr.io/${{ github.repository }}:latest
         
+    - name: Stop Docker Compose
+      if: always()
+      run: docker compose -f docker-compose.yml down
