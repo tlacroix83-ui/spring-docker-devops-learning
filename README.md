@@ -85,21 +85,16 @@ GET /todos
 
 ---
 
-## Tester l’API
+## Tests
 
-### PowerShell
+Le projet inclut plusieurs niveaux de tests :
 
-```powershell
-Invoke-RestMethod `
-  -Uri "http://localhost:8080/todos" `
-  -Method POST `
-  -ContentType "application/json" `
-  -Body '{"title":"Test"}'
-```
+- Tests d’intégration Spring Boot avec MockMvc
+- Tests API via scripts (curl) dans un environnement Docker Compose
+- Validation du fonctionnement avec PostgreSQL
 
-```powershell
-Invoke-RestMethod -Uri "http://localhost:8080/todos"
-```
+Objectif : garantir le bon fonctionnement de l’application dans un environnement proche de la production.
+
 
 ---
 
@@ -129,6 +124,20 @@ volumes:
 * `docker compose up --build` : build et lance les services
 * `docker compose down` : stoppe les containers
 * `docker compose down -v` : supprime aussi les données
+
+---
+
+## 🚀 CI/CD
+
+Mise en place d’une pipeline CI/CD avec GitHub Actions :
+
+- Build Maven automatique
+- Tests d’intégration Spring Boot (MockMvc)
+- Tests API via Docker Compose (PostgreSQL)
+- Build et versioning d’images Docker
+- Publication sur GitHub Container Registry (GHCR)
+  
+Code → GitHub → CI/CD → Tests → Docker image → GHCR → Ready to deploy
 
 ---
 
