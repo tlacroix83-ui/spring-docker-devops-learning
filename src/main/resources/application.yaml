@@ -6,7 +6,7 @@ spring:
     username: user
     password: passsword
   datasource:
-    url: jdbc:postgresql://postgres:5432/app
+    url: jdbc:postgresql://localhost:5432/app
     username: user
     password: password
   jpa:
