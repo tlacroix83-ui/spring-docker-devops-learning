@@ -90,6 +90,7 @@ GET /todos
 Le projet inclut plusieurs niveaux de tests :
 
 - Tests d’intégration Spring Boot avec MockMvc
+- Utilisation de TestContainers
 - Tests API via scripts (curl) dans un environnement Docker Compose
 - Validation du fonctionnement avec PostgreSQL
 
