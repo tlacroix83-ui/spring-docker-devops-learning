@@ -53,7 +53,7 @@ public class TodoControllerIntegrationTest {
         mockMvc.perform(post("/todos")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(todo)))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
 
         // GET
         mockMvc.perform(get("/todos"))

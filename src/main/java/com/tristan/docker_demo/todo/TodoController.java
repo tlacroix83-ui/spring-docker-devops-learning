@@ -2,11 +2,15 @@ package com.tristan.docker_demo.todo;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -19,8 +23,10 @@ public class TodoController {
     }
 
     @PostMapping
-    public Todo create(@RequestBody TodoCreateDto todo) {
-        return repository.save(new Todo(todo.getTitle()));
+    @ResponseStatus(HttpStatus.CREATED)
+    public TodoResponseDto create(@Valid@RequestBody TodoCreateDto todo) {
+        final Todo todoSaved = repository.save(new Todo(todo.getTitle())); 
+        return new TodoResponseDto(todoSaved.getId(), todoSaved.getTitle());
     }
     
     @GetMapping
