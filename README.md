@@ -23,6 +23,7 @@ Ce projet s’inscrit dans une démarche de montée en compétence vers des prat
 
 * Conception d’une API REST (GET / POST)
 * Utilisation de DTO (séparation API / modèle de données)
+* Validation des entrées (Bean Validation)
 * Persistance avec PostgreSQL
 * Conteneurisation d’une application Java
 * Orchestration multi-containers avec Docker Compose
@@ -36,7 +37,11 @@ Ce projet s’inscrit dans une démarche de montée en compétence vers des prat
 ```text
 [Client HTTP]
        ↓
-[Spring Boot API]
+[Controller (DTO + Validation)]
+       ↓
+[Service]
+       ↓
+[Repository]
        ↓
 [PostgreSQL]
 ```
@@ -76,6 +81,9 @@ Body :
   "title": "Mon premier todo"
 }
 ```
+Réponses :
+- 201 Created -> Todo créé
+- 400 Bad Request -> Données invalides
 
 ### 📥 Récupérer les todos
 
@@ -85,16 +93,31 @@ GET /todos
 
 ---
 
-## Tests
+## Validation & DTO
 
-Le projet inclut plusieurs niveaux de tests :
+- Utilisation de DTO pour séparer le modèle API du modèle de données
+- Validation des entrées avec Bean Validation (`@Valid`, `@NotBlank`)
+- Protection contre les données invalides
 
-- Tests d’intégration Spring Boot avec MockMvc
-- Utilisation de TestContainers
-- Tests API via scripts (curl) dans un environnement Docker Compose
-- Validation du fonctionnement avec PostgreSQL
+---
 
-Objectif : garantir le bon fonctionnement de l’application dans un environnement proche de la production.
+## Stratégie de tests
+
+Le projet implémente une stratégie de tests multi-niveaux :
+
+### 1. Tests Controller (MockMvc)
+- Test de la couche web sans serveur HTTP
+- Validation des endpoints REST (codes HTTP, JSON)
+
+### 2. Tests Repository (Testcontainers)
+- Utilisation d’une base PostgreSQL réelle
+- Tests exécutés dans un container Docker éphémère
+
+### 3. Tests API (Docker Compose)
+- Lancement complet de l’application (API + PostgreSQL)
+- Tests via scripts curl dans un environnement conteneurisé
+
+Objectif : reproduire un environnement proche de la production et garantir la fiabilité de l’application.
 
 
 ---
@@ -130,13 +153,18 @@ volumes:
 
 ## 🚀 CI/CD
 
-Mise en place d’une pipeline CI/CD avec GitHub Actions :
+Pipeline GitHub Actions :
 
-- Build Maven automatique
-- Tests d’intégration Spring Boot (MockMvc)
-- Tests API via Docker Compose (PostgreSQL)
-- Build et versioning d’images Docker
-- Publication sur GitHub Container Registry (GHCR)
+1. Build Maven
+2. Exécution des tests :
+   - Tests Spring Boot (MockMvc)
+   - Tests d’intégration avec Testcontainers (PostgreSQL)
+3. Build de l’application
+4. Lancement via Docker Compose
+5. Tests API (scripts curl)
+6. Build et push de l’image Docker vers GitHub Container Registry (GHCR)
+
+👉 Chaque commit sur `main` déclenche automatiquement la pipeline.
   
 Code → GitHub → CI/CD → Tests → Docker image → GHCR → Ready to deploy
 
@@ -147,7 +175,7 @@ Code → GitHub → CI/CD → Tests → Docker image → GHCR → Ready to deplo
 * Finalisation de la pipeline CI/CD (partie deployment) (GitHub Actions)
 * Introduction de microservices
 * Déploiement Kubernetes
-* Validation des entrées (Bean Validation)
+* Gestion centralisée des erreurs (ExceptionHandler)
 * Gestion des erreurs API
 
 ---
