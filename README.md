@@ -24,6 +24,8 @@ Ce projet s’inscrit dans une démarche de montée en compétence vers des prat
 * Conception d’une API REST (GET / POST)
 * Utilisation de DTO (séparation API / modèle de données)
 * Validation des entrées (Bean Validation)
+* Gestion centralisée des erreurs API (ControllerAdvice)
+* Implémentation des codes HTTP REST (201, 400, 404, 500)
 * Persistance avec PostgreSQL
 * Conteneurisation d’une application Java
 * Orchestration multi-containers avec Docker Compose
@@ -99,6 +101,29 @@ GET /todos
 - Validation des entrées avec Bean Validation (`@Valid`, `@NotBlank`)
 - Protection contre les données invalides
 
+---
+
+## ⚠️ Gestion des erreurs
+
+L’API implémente une gestion centralisée des erreurs via `@RestControllerAdvice`.
+
+### Cas gérés :
+
+- `400 Bad Request` → erreurs de validation (DTO)
+- `404 Not Found` → ressource inexistante
+- `500 Internal Server Error` → erreurs non prévues (fallback global)
+
+### Format de réponse :
+
+```json
+{
+  "timestamp": "...",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "title must not be blank",
+  "path": "/todos"
+}
+```
 ---
 
 ## Stratégie de tests
