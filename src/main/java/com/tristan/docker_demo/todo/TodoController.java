@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.tristan.docker_demo.exception.TodoNotFoundException;
 
 import jakarta.validation.Valid;
 
@@ -35,5 +38,10 @@ public class TodoController {
                 .map(todo -> new TodoResponseDto(todo.getId(), todo.getTitle()))
                 .toList();
     }
-    
+
+    @GetMapping("/{id}")
+    public TodoResponseDto getById(@PathVariable Long id) {
+        final Todo todo = repository.findById(id).orElseThrow(() -> new TodoNotFoundException(id));
+        return new TodoResponseDto(todo.getId(), todo.getTitle());
+    }
 }    
