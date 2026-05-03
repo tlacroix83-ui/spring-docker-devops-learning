@@ -93,6 +93,16 @@ Réponses :
 GET /todos
 ```
 
+### 🔎 Récupérer un todo par ID
+
+```http
+GET /todos/{id}
+```
+
+Réponses :
+- 200 Ok -> Todo trouvé
+- 404 Not Found -> Todo inexistant
+  
 ---
 
 ## Validation & DTO
@@ -198,9 +208,8 @@ Code → GitHub → CI/CD → Tests → Docker image → GHCR → Ready to deplo
 ## 🚧 Évolutions prévues
 
 * Finalisation de la pipeline CI/CD (partie deployment) (GitHub Actions)
+* Mise en place de logs structurés (observabilité)
 * Introduction de microservices
 * Déploiement Kubernetes
-* Gestion centralisée des erreurs (ExceptionHandler)
-* Gestion des erreurs API
 
 ---
