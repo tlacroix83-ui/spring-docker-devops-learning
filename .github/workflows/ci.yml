@@ -47,11 +47,13 @@ jobs:
 
     - name: Create Kubernetes cluster with kind
       uses: helm/kind-action@v1
+      with:
+        cluster-name: ci-cluster
 
     - name: Load Docker images into kind cluster
       run: |
-        kind load docker-image todo-api:local --name kind
-        kind load docker-image postgres:16 --name kind
+        kind load docker-image todo-api:local --name ci-cluster
+        kind load docker-image postgres:16 --name ci-cluster
 
     - name: Apply Kubernetes manifests
       run: kubectl apply -f k8s/
