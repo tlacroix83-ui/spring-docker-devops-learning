@@ -48,7 +48,12 @@ jobs:
     - name: Create Kubernetes cluster with kind
       uses: helm/kind-action@v1
       with:
-        cluster-name: ci-cluster
+        cluster_name: ci-cluster
+
+    - name: Check kind clusters
+      run: |
+        kind get clusters
+        kubectl config current-context
 
     - name: Load Docker images into kind cluster
       run: |
