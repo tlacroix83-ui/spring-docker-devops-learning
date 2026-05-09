@@ -1,10 +1,6 @@
 spring:
   application:
     name: docker-demo
-  postgres:
-    name: app
-    username: user
-    password: passsword
   datasource:
     url: jdbc:postgresql://localhost:5432/app
     username: user
@@ -12,4 +8,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
+
+logging:
+  level:
+    root: INFO
+    com.tristan.docker_demo: DEBUG
+    org.hibernate.SQL: WARN
