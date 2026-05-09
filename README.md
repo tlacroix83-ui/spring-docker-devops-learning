@@ -222,7 +222,8 @@ Pipeline GitHub Actions :
 3. Build de l’application
 4. Lancement via Docker Compose
 5. Tests API (scripts curl)
-6. Build et push de l’image Docker vers GitHub Container Registry (GHCR)
+6. Création et vérification d'un cluster Kubernetes incluant notre app
+7. Build et push de l’image Docker vers GitHub Container Registry (GHCR)
 
 👉 Chaque commit sur `main` déclenche automatiquement la pipeline.
   
