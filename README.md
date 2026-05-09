@@ -26,6 +26,7 @@ Ce projet s’inscrit dans une démarche de montée en compétence vers des prat
 * Validation des entrées (Bean Validation)
 * Gestion centralisée des erreurs API (ControllerAdvice)
 * Implémentation des codes HTTP REST (201, 400, 404, 500)
+* Mise en place de logs structurés (observabilité)
 * Persistance avec PostgreSQL
 * Conteneurisation d’une application Java
 * Orchestration multi-containers avec Docker Compose
@@ -186,6 +187,30 @@ volumes:
 
 ---
 
+## Kubernetes
+
+This project includes a first Kubernetes deployment setup for learning purposes.
+
+The application can be deployed locally on Docker Desktop Kubernetes using the manifests located in the `k8s/` directory.
+
+### Kubernetes resources
+
+The project defines:
+
+- `todo-deployment.yml`: deploys the Spring Boot Todo API
+- `todo-service.yml`: exposes the Todo API locally
+- `postgres-deployment.yml`: deploys PostgreSQL
+- `postgres-service.yml`: exposes PostgreSQL inside the cluster
+
+### Local deployment
+
+Build the application and Docker image:
+
+```bash
+mvn clean package
+docker build -t todo-api:v2 .
+```
+
 ## 🚀 CI/CD
 
 Pipeline GitHub Actions :
@@ -208,7 +233,6 @@ Code → GitHub → CI/CD → Tests → Docker image → GHCR → Ready to deplo
 ## 🚧 Évolutions prévues
 
 * Finalisation de la pipeline CI/CD (partie deployment) (GitHub Actions)
-* Mise en place de logs structurés (observabilité)
 * Introduction de microservices
 * Déploiement Kubernetes
 
