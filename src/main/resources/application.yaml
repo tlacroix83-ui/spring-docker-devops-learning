@@ -2,7 +2,7 @@ spring:
   application:
     name: docker-demo
   datasource:
-    url: jdbc:postgresql://localhost:5432/app
+    url: jdbc:postgresql://postgres-service:5432/app
     username: user
     password: password
   jpa:

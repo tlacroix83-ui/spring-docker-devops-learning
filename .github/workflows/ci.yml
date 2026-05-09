@@ -42,6 +42,13 @@ jobs:
     - name: Test API
       run: ./scripts/test-api.sh
 
+    - name: Validate Kubernetes manifests
+      run: |
+        kubectl apply --dry-run=client -f k8s/todo-deployment.yml
+        kubectl apply --dry-run=client -f k8s/todo-service.yml
+        kubectl apply --dry-run=client -f k8s/postgres-deployment.yml
+        kubectl apply --dry-run=client -f k8s/postgres-service.yml
+
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v3
       with:

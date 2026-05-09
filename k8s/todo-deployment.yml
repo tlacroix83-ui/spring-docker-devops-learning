@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: todo-api-deployment
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: todo-api
+
+  template:
+    metadata:
+      labels:
+        app: todo-api
+
+    spec:
+      containers:
+        - name: todo-api
+          image: todo-api:v2
+          # Since we're using a local image, we set the pull policy to Never to avoid Kubernetes trying to pull it from a registry
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - containerPort: 8080
