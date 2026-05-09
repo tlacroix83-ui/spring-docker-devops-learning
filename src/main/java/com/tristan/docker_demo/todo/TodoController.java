@@ -70,6 +70,9 @@ public class TodoController {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("[getById] BEGIN");
         }
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("[getById] Retrieving todo with ID: {}", id);
+        }
         final Todo todo = service.getTodoById(id);
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("[getById] Found todo: {}", todo);

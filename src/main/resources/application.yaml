@@ -15,3 +15,5 @@ logging:
     root: INFO
     com.tristan.docker_demo: DEBUG
     org.hibernate.SQL: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%level] [%thread] %logger{36} - %msg%n"
