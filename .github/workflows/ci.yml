@@ -29,6 +29,9 @@ jobs:
 
     - name: Build with Maven
       run: ./mvnw clean package -DskipTests
+      
+    - name: Build Docker image for Kubernetes
+      run: docker build -t todo-api:local .
 
     - name: Build and run Docker Compose
       run: docker compose -f docker-compose.yml up --build -d
@@ -41,11 +44,27 @@ jobs:
 
     - name: Test API
       run: ./scripts/test-api.sh
-    
-    - name: Set up kubectl
-      uses: azure/setup-kubectl@v4
-      with:
-        version: 'latest'
+
+    - name: Create Kubernetes cluster with kind
+      uses: helm/kind-action@v1
+
+    - name: Load Docker images into kind cluster
+      run: |
+        kind load docker-image todo-api:local --name kind
+        kind load docker-image postgres:16 --name kind
+
+    - name: Apply Kubernetes manifests
+      run: kubectl apply -f k8s/
+
+    - name: Rollout status of deployments
+      run: |
+        kubectl rollout status deployment/todo-api-deployment
+        kubectl rollout status deployment/postgres-deployment
+
+    - name: Check Kubernetes resources
+      run: |
+        kubectl get pods
+        kubectl get svc
 
     - name: Validate Kubernetes manifests
       run: |

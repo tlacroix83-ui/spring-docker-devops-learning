@@ -19,8 +19,8 @@ spec:
     spec:
       containers:
         - name: todo-api
-          image: todo-api:v2
-          # Since we're using a local image, we set the pull policy to Never to avoid Kubernetes trying to pull it from a registry
+          image: todo-api:local
+          # Use IfNotPresent to avoid pulling from registry during local testing
           imagePullPolicy: IfNotPresent
 
           ports:
